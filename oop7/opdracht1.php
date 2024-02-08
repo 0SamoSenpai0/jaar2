@@ -4,31 +4,37 @@
 class house{
     public $floor;
     public $rooms;
+    public $width;
+    public $height;
+    public $depth;
     public $volume;
 
     function __construct($floor,$rooms,$width,$height,$depth)
     {
         $this->floor = $floor;
         $this->rooms = $rooms;
-        //$this->width = $width;
-        //$this->height = $height;
-        //$this->depth = $depth;
+        $this->width = $width;
+        $this->height = $height;
+        $this->depth = $depth;
         $this->volume = $width*$height*$depth;
     }   
     function setVolume($width,$height,$depth){
         $volume = $width*$height*$depth;
     }
     function getHouse(){
-        return "dit huis heeft {$this->floor} verdieping(en), {$this->rooms} kamers en heeft een volume van {$this->volume} m3"; echo "br";
+        return "dit huis heeft {$this->floor} verdieping(en), {$this->rooms} 
+        kamers en heeft een volume van {$this->volume} m3
+       (breedte {$this->width}m, 
+        hoogte {$this->height}m, diepte {$this->depth}m.)"; echo "br";
     }
      function getPrice(){    
         $priseperm3 = 1500;
         $price = $this->volume * $priseperm3;
-        return "De pris van het huis is: $price";
+        return "De prijs van het huis is: $price";
      }
 }
 $house1 = new house(1,2,10.0,10.0,1.0);
-echo $house1->getHouse() , "<br>";
+echo $house1->getHouse() ,"<br>";
 echo $house1->getPrice();
 echo "<br>";
 $house2 = new house(3,8,15,10,1);
