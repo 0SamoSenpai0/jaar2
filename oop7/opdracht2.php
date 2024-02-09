@@ -61,21 +61,21 @@ class House {
     }
 }
 
-// Voorbeeldgebruik:
+
 $house = new House();
 
-// Kamers toevoegen
+
 $house->addRoom(new Room(5.2, 5.1, 5.5));
 $house->addRoom(new Room(4.8, 4.6, 4.9));
 $house->addRoom(new Room(5.9, 2.5, 3.1));
 
-// Totale volume berekenen
+
 $totalVolume = $house->getTotalVolume();
 
-// Prijs instellen
+
 $house->setPrice(894000);
 
-// Uitvoer genereren
+
 echo "Inhoud Kamers:", "<br>";
 foreach ($house->getRooms() as $room) {
     echo "• Lengte: " . $room->getLength() .
