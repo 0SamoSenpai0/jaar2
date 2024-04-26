@@ -59,16 +59,16 @@ $spelregels = [
 if (isset($_POST['reset'])) {
     session_destroy();
     session_start();
-    $_SESSION['history'] = [];
+    $_SESSION['geschiedenis'] = [];
     $_SESSION['spelAfgemaakt'] = true;
 }
 
 
 // maakt de spelgeschiedenis aan
 function updategeschiedenis() {
-    foreach ($_SESSION['history'] as $index => $spel) {
+    foreach ($_SESSION['geschiedenis'] as $index => $spel) {
         if (!isset($spel['GegooideDobbelstenen'])) {
-            $_SESSION['history'][$index]['GegooideDobbelstenen'] = 'Onbekend';
+            $_SESSION['geschiedenis'][$index]['GegooideDobbelstenen'] = 'Onbekend';
         }
     }
 }
@@ -120,12 +120,12 @@ if (isset($_POST['raden'])) {
         $geradenPinguins == $_SESSION['resultaat']['pinguins']) {
         echo "<p>Je hebt het correct geraden!</p>";
         $_SESSION['spelAfgemaakt'] = true;
-        array_unshift($_SESSION['history'], [
+        array_unshift($_SESSION['geschiedenis'], [
             'fouten' => $_SESSION['fouten'],
             'afgemaakt' => $_SESSION['spelAfgemaakt'],
             'GegooideDobbelstenen' => $_SESSION['GegooideDobbelstenen'] // hier zitten al de gegooide dobbelstenen in
         ]);
-        $_SESSION['history'] = array_slice($_SESSION['history'], 0, 5);
+        $_SESSION['geschiedenis'] = array_slice($_SESSION['geschiedenis'], 0, 5);
 
         
         // Reset de resultaat voor het volgende spel
@@ -141,12 +141,12 @@ if (isset($_POST['raden'])) {
 if (isset($_POST['oplossing'])) {
     $_SESSION['spelAfgemaakt'] = false;
     echo "<p>De oplossing was: Wakken - {$_SESSION['resultaat']['wakken']}, IJsberen - {$_SESSION['resultaat']['ijsberen']}, Pinguïns - {$_SESSION['resultaat']['pinguins']}</p>";
-    array_unshift($_SESSION['history'], [
+    array_unshift($_SESSION['geschiedenis'], [
         'fouten' => $_SESSION['fouten'],
         'afgemaakt' => $_SESSION['spelAfgemaakt'],
         'GegooideDobbelstenen' => $_SESSION['GegooideDobbelstenen']
     ]);
-    $_SESSION['history'] = array_slice($_SESSION['history'], 0, 5);
+    $_SESSION['geschiedenis'] = array_slice($_SESSION['geschiedenis'], 0, 5);
     
     // Reset de resultaat voor het nieuwe spel
     unset($_SESSION['resultaat']);
@@ -158,7 +158,7 @@ if (isset($_POST['oplossing'])) {
 if (isset($_POST['reset'])) {
     session_destroy();
     session_start();
-    $_SESSION['history'] = [];
+    $_SESSION['geschiedenis'] = [];
     $_SESSION['spelAfgemaakt'] = true;
 }
 ?>
@@ -209,7 +209,7 @@ if (isset($_POST['reset'])) {
         <th>hoeveel spellen gewonnen</th>
         
     </tr>
-    <?php foreach ($_SESSION['history'] as $spel): ?>
+    <?php foreach ($_SESSION['geschiedenis'] as $spel): ?>
         <tr>
             <td><?php echo $spel['GegooideDobbelstenen']; ?></td>
             <td><?php echo $spel['fouten']; ?></td>
