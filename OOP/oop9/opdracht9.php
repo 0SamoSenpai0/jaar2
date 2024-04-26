@@ -45,8 +45,8 @@
 <?php
 session_start();
 
-// Spelregels
-$regels = [
+// Spelspelregels
+$spelregels = [
     1 => ['wakken' => 1, 'ijsberen' => 0, 'pinguins' => 6],
     2 => ['wakken' => 0, 'ijsberen' => 0, 'pinguins' => 0],
     3 => ['wakken' => 1, 'ijsberen' => 2, 'pinguins' => 4],
@@ -63,35 +63,35 @@ if (isset($_POST['reset'])) {
     $_SESSION['spelAfgemaakt'] = true;
 }
 
-// maakt de spelgeschiedenis
-function updateSpelgeschiedenisMetAantalDobbelstenen() {
+
+// maakt de spelgeschiedenis aan
+function updategeschiedenis() {
     foreach ($_SESSION['history'] as $index => $spel) {
-        if (!isset($spel['aantalGegooideDobbelstenen'])) {
-            $_SESSION['history'][$index]['aantalGegooideDobbelstenen'] = 'Onbekend';
+        if (!isset($spel['GegooideDobbelstenen'])) {
+            $_SESSION['history'][$index]['GegooideDobbelstenen'] = 'Onbekend';
         }
     }
 }
+// Update de geschiedenis
+updategeschiedenis();
 
 // het spel zelf laten werken
-function gooiDobbelstenen($aantalDobbelstenen, $regels) {
-    $resultaten = ['dobbelstenen' => [], 'wakken' => 0, 'ijsberen' => 0, 'pinguins' => 0];
+function gooiDobbelstenen($aantalDobbelstenen, $spelregels) {
+    $resultaat = ['dobbelstenen' => [], 'wakken' => 0, 'ijsberen' => 0, 'pinguins' => 0];
     for ($i = 0; $i < $aantalDobbelstenen; $i++) {
-        $worp = rand(1, 6);
-        $resultaten['dobbelstenen'][] = $worp;
-        $resultaten['wakken'] += $regels[$worp]['wakken'];
-        $resultaten['ijsberen'] += $regels[$worp]['ijsberen'];
-        $resultaten['pinguins'] += $regels[$worp]['pinguins'];
+        $nummer = rand(1, 6);
+        $resultaat['dobbelstenen'][] = $nummer;
+        $resultaat['wakken'] += $spelregels[$nummer]['wakken'];
+        $resultaat['ijsberen'] += $spelregels[$nummer]['ijsberen'];
+        $resultaat['pinguins'] += $spelregels[$nummer]['pinguins'];
     }
-    return $resultaten;
+    return $resultaat;
 }
-
-// Update de geschiedenis
-updateSpelgeschiedenisMetAantalDobbelstenen();
 
 // kijkt of er een nieuwe gooi of antwoord actie is
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['gooi'])) {
-    $_SESSION['resultaten'] = gooiDobbelstenen($_POST['aantalDobbelstenen'], $regels);
-    $_SESSION['aantalGegooideDobbelstenen'] = $_POST['aantalDobbelstenen'] ?? ($_SESSION['aantalGegooideDobbelstenen'] ?? 0);
+    $_SESSION['resultaat'] = gooiDobbelstenen($_POST['aantalDobbelstenen'], $spelregels);
+    $_SESSION['GegooideDobbelstenen'] = $_POST['aantalDobbelstenen'] ?? ($_SESSION['GegooideDobbelstenen'] ?? 0);
     $_SESSION['fouten'] = 0;
     $_SESSION['spelAfgemaakt'] = true;
 }
@@ -102,9 +102,9 @@ if (isset($_POST['raden'])) {
     $geradenIjsberen = $_POST['ijsberen'];
     $geradenPinguins = $_POST['pinguins'];
 
-    if ($geradenWakken != $_SESSION['resultaten']['wakken'] || 
-        $geradenIjsberen != $_SESSION['resultaten']['ijsberen'] || 
-        $geradenPinguins != $_SESSION['resultaten']['pinguins']) {
+    if ($geradenWakken != $_SESSION['resultaat']['wakken'] || 
+        $geradenIjsberen != $_SESSION['resultaat']['ijsberen'] || 
+        $geradenPinguins != $_SESSION['resultaat']['pinguins']) {
         $_SESSION['fouten']++;
         
         // na 2 fouten krijg je een hint
@@ -115,21 +115,21 @@ if (isset($_POST['raden'])) {
     }
     
     // Vergelijkt de antwoord met de correcte waarde
-    if ($geradenWakken == $_SESSION['resultaten']['wakken'] && 
-        $geradenIjsberen == $_SESSION['resultaten']['ijsberen'] && 
-        $geradenPinguins == $_SESSION['resultaten']['pinguins']) {
+    if ($geradenWakken == $_SESSION['resultaat']['wakken'] && 
+        $geradenIjsberen == $_SESSION['resultaat']['ijsberen'] && 
+        $geradenPinguins == $_SESSION['resultaat']['pinguins']) {
         echo "<p>Je hebt het correct geraden!</p>";
         $_SESSION['spelAfgemaakt'] = true;
         array_unshift($_SESSION['history'], [
             'fouten' => $_SESSION['fouten'],
             'afgemaakt' => $_SESSION['spelAfgemaakt'],
-            'aantalGegooideDobbelstenen' => $_SESSION['aantalGegooideDobbelstenen'] // hier zitten al de gegooide dobbelstenen in
+            'GegooideDobbelstenen' => $_SESSION['GegooideDobbelstenen'] // hier zitten al de gegooide dobbelstenen in
         ]);
         $_SESSION['history'] = array_slice($_SESSION['history'], 0, 5);
 
         
-        // Reset de resultaten voor het volgende spel
-        unset($_SESSION['resultaten']);
+        // Reset de resultaat voor het volgende spel
+        unset($_SESSION['resultaat']);
 
     } else {
         echo "<p>Helaas, dat is niet correct.</p>";
@@ -140,32 +140,40 @@ if (isset($_POST['raden'])) {
 // kijkt of het spel afgemaakt is door op "geef antwoord" te drukken
 if (isset($_POST['oplossing'])) {
     $_SESSION['spelAfgemaakt'] = false;
-    echo "<p>De oplossing was: Wakken - {$_SESSION['resultaten']['wakken']}, IJsberen - {$_SESSION['resultaten']['ijsberen']}, Pinguïns - {$_SESSION['resultaten']['pinguins']}</p>";
+    echo "<p>De oplossing was: Wakken - {$_SESSION['resultaat']['wakken']}, IJsberen - {$_SESSION['resultaat']['ijsberen']}, Pinguïns - {$_SESSION['resultaat']['pinguins']}</p>";
     array_unshift($_SESSION['history'], [
         'fouten' => $_SESSION['fouten'],
         'afgemaakt' => $_SESSION['spelAfgemaakt'],
-        'aantalGegooideDobbelstenen' => $_SESSION['aantalGegooideDobbelstenen']
+        'GegooideDobbelstenen' => $_SESSION['GegooideDobbelstenen']
     ]);
     $_SESSION['history'] = array_slice($_SESSION['history'], 0, 5);
     
-    // Reset de resultaten voor het nieuwe spel
-    unset($_SESSION['resultaten']);
+    // Reset de resultaat voor het nieuwe spel
+    unset($_SESSION['resultaat']);
     unset($_SESSION['fouten']);
-    unset($_SESSION['aantalGegooideDobbelstenen']);
+    unset($_SESSION['GegooideDobbelstenen']);
+}
+
+// reset de pagina/spel zelf
+if (isset($_POST['reset'])) {
+    session_destroy();
+    session_start();
+    $_SESSION['history'] = [];
+    $_SESSION['spelAfgemaakt'] = true;
 }
 ?>
 
 <!-- hoofdcode voor de html gedeelte... -->
-<?php if (!isset($_SESSION['resultaten'])): ?>
+<?php if (!isset($_SESSION['resultaat'])): ?>
     <form method="post">
         <label for="aantalDobbelstenen">hoeveel dobblestenen wilt u gebruiken (3-8): </label>
         <input type="number" id="aantalDobbelstenen" name="aantalDobbelstenen" min="3" max="8" required>
         <button type="submit" name="gooi">Gooi de dobbelstenen</button>
     </form>
 <?php else: ?>
-    <p>Dobbelstenen geworpen: <br>
+    <p>Dobbelstenen genummeren: <br>
         <?php 
-        foreach ($_SESSION['resultaten']['dobbelstenen'] as $dobbelsteen) {
+        foreach ($_SESSION['resultaat']['dobbelstenen'] as $dobbelsteen) {
             echo '<img src="images/dice'.$dobbelsteen.'.png" alt="dobbelsteen" style="width: 100px; height: 100px;">';
         }
         ?>
@@ -203,7 +211,7 @@ if (isset($_POST['oplossing'])) {
     </tr>
     <?php foreach ($_SESSION['history'] as $spel): ?>
         <tr>
-            <td><?php echo $spel['aantalGegooideDobbelstenen']; ?></td>
+            <td><?php echo $spel['GegooideDobbelstenen']; ?></td>
             <td><?php echo $spel['fouten']; ?></td>
             <td><?php echo $spel['afgemaakt'] ? 'Ja' : 'om antwoord gevraagd'; ?></td>
         </tr>
