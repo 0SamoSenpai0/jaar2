@@ -198,14 +198,14 @@ if (isset($_POST['oplossing'])) {
     <tr>
         <th>Aantal dobbelstenen gegooid</th>
         <th>hoeveel spellen verloren</th>
-        <th>hoeveel spellen gewonnen</th>
+        <th>gewonnen?</th>
         
     </tr>
     <?php foreach ($_SESSION['history'] as $spel): ?>
         <tr>
             <td><?php echo $spel['aantalGegooideDobbelstenen']; ?></td>
             <td><?php echo $spel['fouten']; ?></td>
-            <td><?php echo $spel['afgemaakt'] ? 'Ja' : 'om antwoord gevraagd'; ?></td>
+            <td><?php echo $spel['afgemaakt'] ? 'ja' : 'om antwoord gevraagd'; ?></td>
         </tr>
     <?php endforeach; ?>
 </table>
