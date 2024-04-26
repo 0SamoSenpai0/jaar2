@@ -158,7 +158,7 @@ if (isset($_POST['oplossing'])) {
 <!-- hoofdcode voor de html gedeelte... -->
 <?php if (!isset($_SESSION['resultaten'])): ?>
     <form method="post">
-        <label for="aantalDobbelstenen">hoeveel dobblestenen wilt u gebruiken? (3-8): </label>
+        <label for="aantalDobbelstenen">hoeveel dobblestenen wilt u gebruiken (3-8): </label>
         <input type="number" id="aantalDobbelstenen" name="aantalDobbelstenen" min="3" max="8" required>
         <button type="submit" name="gooi">Gooi de dobbelstenen</button>
     </form>
@@ -198,14 +198,14 @@ if (isset($_POST['oplossing'])) {
     <tr>
         <th>Aantal dobbelstenen gegooid</th>
         <th>hoeveel spellen verloren</th>
-        <th>gewonnen?</th>
+        <th>hoeveel spellen gewonnen</th>
         
     </tr>
     <?php foreach ($_SESSION['history'] as $spel): ?>
         <tr>
             <td><?php echo $spel['aantalGegooideDobbelstenen']; ?></td>
             <td><?php echo $spel['fouten']; ?></td>
-            <td><?php echo $spel['afgemaakt'] ? 'ja' : 'om antwoord gevraagd'; ?></td>
+            <td><?php echo $spel['afgemaakt'] ? 'Ja' : 'om antwoord gevraagd'; ?></td>
         </tr>
     <?php endforeach; ?>
 </table>
