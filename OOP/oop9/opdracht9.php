@@ -205,8 +205,8 @@ if (isset($_POST['reset'])) {
 <table>
     <tr>
         <th>Aantal dobbelstenen gegooid</th>
-        <th>hoeveel spellen verloren</th>
-        <th>hoeveel spellen gewonnen</th>
+        <th>hoeveel gemaakte fouten</th>
+        <th>gewonnen?</th>
         
     </tr>
     <?php foreach ($_SESSION['geschiedenis'] as $spel): ?>
