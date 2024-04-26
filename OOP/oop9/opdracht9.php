@@ -158,7 +158,7 @@ if (isset($_POST['oplossing'])) {
 <!-- hoofdcode voor de html gedeelte... -->
 <?php if (!isset($_SESSION['resultaten'])): ?>
     <form method="post">
-        <label for="aantalDobbelstenen">hoeveel dobblestenen wilt u gebruiken (3-8): </label>
+        <label for="aantalDobbelstenen">hoeveel dobblestenen wilt u gebruiken? (3-8): </label>
         <input type="number" id="aantalDobbelstenen" name="aantalDobbelstenen" min="3" max="8" required>
         <button type="submit" name="gooi">Gooi de dobbelstenen</button>
     </form>
