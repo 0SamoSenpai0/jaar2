@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <title>Wakken en de IJsberen</title>
     <style>
-    /* styling voor wat leuke kleuren */
+    /* styling voor wat leuke kleuren en opmaak*/
     body {
         font-family: 'Comic Sans MS', 'Arial', sans-serif;
         background-color: #f0f8ff; 
@@ -96,7 +96,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['gooi'])) {
     $_SESSION['spelAfgemaakt'] = true;
 }
 
-//  kijkt of de antwoord van de speler klopt
+//  kijkt naar de antwoord van de speler
 if (isset($_POST['raden'])) {
     $geradenWakken = $_POST['wakken'];
     $geradenIjsberen = $_POST['ijsberen'];
