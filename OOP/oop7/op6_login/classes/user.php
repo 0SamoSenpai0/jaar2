@@ -1,7 +1,7 @@
 <?php
     // Functie: class definitie User 
-    // Auteur: Wigmans
-
+    // Auteur: Yermaih
+    require_once('classes/database.php')
     class User{
 
         // Eigenschappen 

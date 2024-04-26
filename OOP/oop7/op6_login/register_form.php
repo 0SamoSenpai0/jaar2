@@ -20,7 +20,7 @@ if(isset($_POST['register-btn'])){
 	}
 	
 	if(count($errors) > 0){
-		$message = "";
+		$message = "leuke inlog bro";
 		foreach ($errors as $error) {
 			$message .= $error . "\\n";
 		}
@@ -30,11 +30,11 @@ if(isset($_POST['register-btn'])){
 		<script>window.location = 'register_form.php'</script>";
 	
 	} 
-	// else {
-	// 	echo "
-	// 		<script>alert('" . "User registerd" . "')</script>
-	// 		<script>window.location = 'login_form.php'</script>";
-	// }
+	else {
+		echo "
+			<script>alert('" . "User registerd" . "')</script>
+			<script>window.location = 'login_form.php'</script>";
+	}
 
 }
 ?>
