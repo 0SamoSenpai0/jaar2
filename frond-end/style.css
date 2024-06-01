@@ -1,54 +1,68 @@
-
+:root {
+    --primary-color: #4A148C;
+    --secondary-color: #333;
+    --text-color: #ffffff;
+    --background-color: rgba(255, 255, 255, 0.8);
+    --border-radius: 50px;
+}
 body {
     margin: 0;
     font-family: Arial, sans-serif;
     display: grid;
     grid-template-rows: auto 1fr auto;
     min-height: 100vh;
-    background-image: url(img/spiderman.png);
+    background-image: url('img/spiderman.png');
     background-size: cover;
     background-repeat: no-repeat;
 }
-/* header {
-    background-color: #4A148C;
-    color: white;
+header {
+    margin-top: 0%;
+    color: var(--text-color);
     text-align: center;
-    padding: 1rem;
-} */
-nav {
-    color: white;
-    width: 10vw;
-    display: flex;
-    justify-content: space-around;
-    padding: 0.5rem;
+    /* padding: 1rem; */
 }
 main {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 1rem;
-    padding: 1rem;
-    background: url('/mnt/data/image.png') no-repeat center center/cover;
-}
-section{
+    display: flex;
     justify-content: right;
+    align-items: center;
+    padding: 1rem;
+    text-align: left;
+    margin-right: 5%;
+    margin-top: -2%;
 }
 .content {
-    background-color: #585ABF;
-    padding: 1rem;
-    border-radius: 10px;
-    display: flex;
-    flex-direction: column;
-    align-items: right;
-    /* align-items: flex-start; */
+    background-color: var(--primary-color);
+    color: var(--text-color);
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    width: 300px;
+    height: 350px;
 }
-/* .content h2 {
-    background-color: #7B1FA2;
-    color: white;
-    padding: 0.5rem 1rem;
-    border-radius: 25px;
-} */
+p{
+    margin-top: -3%;
+    font-size: 16px;
+}
+nav {
+    display: flex;
+    justify-content: space-between;
+    width: 35vw;
+    gap: 2rem;
+    /* padding: 1rem; */
+}
+nav img {
+    width: 100px;
+    height: 100px;
+}
+footer {
+    color: var(--text-color);
+    text-align: center;
+    padding: 1rem;
+}
+
+/* Responsief ontwerp */
 /* @media (min-width: 768px) {
     main {
-        grid-template-columns: 1fr 2fr;
+        justify-content: space-between;
     }
 } */
+
