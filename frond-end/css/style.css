@@ -13,9 +13,14 @@ body {
     display: grid;
     grid-template-rows: auto 1fr auto;
     min-height: 100vh;
-    background-image: url('img/spiderman.png');
+    background-image: url('/frond-end/img/spiderman.png');
     background-size: cover;
     background-repeat: no-repeat;
+}
+.p404b{
+background-image: url('/frond-end/img/404.png');
+background-size: cover;
+background-repeat: no-repeat;
 }
 header {
     margin-top: 0%;
@@ -31,6 +36,15 @@ main {
     text-align: left;
     margin-right: 5%;
     margin-top: -2%;
+}
+.p404m{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    text-align: left;
+    margin-top: -20vh;
+    color: white;
 }
 .content {
     background-color: var(--primary-color);
@@ -73,7 +87,7 @@ footer {
         font-size: 12px;
     }
     body {
-        background-image: url(img/spiderman2.png) ; 
+        background-image: url(/frond-end/img/spiderman2.png) ; 
         background-repeat: no-repeat;
         background-size: cover;
         display: flex;
@@ -125,7 +139,7 @@ and (max-width: 1200px)
          font-size: 10px;
      }
      body {
-         background-image: url(img/spiderman.png) ; 
+         background-image: url(/frond-end/img/spiderman.png) ; 
          background-repeat: no-repeat;
          background-size: 100vw;
          display: flex;
