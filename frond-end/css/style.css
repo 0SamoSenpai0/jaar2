@@ -13,12 +13,12 @@ body {
     display: grid;
     grid-template-rows: auto 1fr auto;
     min-height: 100vh;
-    background-image: url('/frond-end/img/spiderman.png');
+    background-image: url('/img/spiderman.png');
     background-size: cover;
     background-repeat: no-repeat;
 }
 .p404b{
-background-image: url('/frond-end/img/404.png');
+background-image: url('/img/404.png');
 background-size: cover;
 background-repeat: no-repeat;
 }
